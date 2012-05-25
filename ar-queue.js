@@ -1,5 +1,6 @@
 //
 //  ar-queue.js
+//  ar-queue
 //
 //  Created by Max Meier on 5/24/12.
 //  Copyright (c) 2012 Another Reality. All rights reserved.
@@ -9,7 +10,7 @@ var queue = [];
 var interval = 60000; //defaults to 1 minute
 
 run = function(){
-
+	//begin popping off items and dispatching tasks at set interval
 }
 
 halt = function(){
@@ -17,7 +18,7 @@ halt = function(){
 }
 
 exports.start = function(callback){
-	//begin popping off items and running at set interval
+	run();
 }
 
 exports.stop = function(callback){
@@ -37,11 +38,11 @@ exports.exportData = function(database, callback){
 	
 }
 
-exports.addTask = function(callback){
+exports.addTask = function(task, callback){
 	
 	//return task id or error
 }
 
-exports.removeTask(id, callback(){
+exports.removeTask = function(id, callback){
 	
 }
