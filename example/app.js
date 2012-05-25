@@ -17,12 +17,14 @@ app.get('/', function(req, res) { res.redirect('/example'); });
 
 app.get('/example', function(req, res) {
 	res.render('example.html', {
-		title: "ar-queue.js Example"
+		title: "ar-queue.js Example",
+		postpath: '/addTask',
+		queueData: queue.data()
 	});
 });
 
 app.post('/addTask', function(req, res){
-	var newTask = { 'name': req.body.taskName, 'type': req.body.taskType }
+	var newTask = { 'name': req.body.taskName, 'callback' : function(){console.log('task:'+req.body.taskName+'dispatched');} };
 	queue.addTask(newTask,
 		function(error) {
 			if (error) throw error;

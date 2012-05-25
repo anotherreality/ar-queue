@@ -9,6 +9,11 @@
 var queue = [];
 var interval = 60000; //defaults to 1 minute
 
+function currentQueue()
+{
+	return queue;
+}
+
 run = function(){
 	//begin popping off items and dispatching tasks at set interval
 }
@@ -30,6 +35,10 @@ exports.setDispatchInterval = function(interval, callback){
 	callback(null);
 }
 
+exports.data = function(){
+	currentQueue();
+}
+
 exports.loadData = function(data, callback){
 	
 }
@@ -39,8 +48,8 @@ exports.exportData = function(database, callback){
 }
 
 exports.addTask = function(task, callback){
-	
-	//return task id or error
+	queue.push(task);
+	callback(null);
 }
 
 exports.removeTask = function(id, callback){
