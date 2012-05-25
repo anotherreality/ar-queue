@@ -5,14 +5,14 @@
 //  Copyright (c) 2012 Another Reality. All rights reserved.
 //
 
-var _queue = [];
-var _interval = 60000; //defaults to 1 minute
+var queue = [];
+var interval = 60000; //defaults to 1 minute
 
-_run = function(){
+run = function(){
 
 }
 
-_stop = function(){
+halt = function(){
 
 }
 
