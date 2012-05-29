@@ -1,7 +1,5 @@
 var util = require('util');
 var url = require('url');
-/* mongoose managed MongoDB used for this example */
-// var database = require('./database');
 var queue = require('../ar-queue');
 var express = require('express');
 var app = express.createServer();

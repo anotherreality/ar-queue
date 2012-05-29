@@ -6,12 +6,13 @@
 //  Copyright (c) 2012 Another Reality. All rights reserved.
 //
 
-var queue = [];
-var interval = 60000; //defaults to 1 minute
+var database = require('./database');
+var _queue = [];
+var _interval = 60000; //defaults to 1 minute
 
-function currentQueue()
+function active()
 {
-	return queue;
+	return _queue;
 }
 
 function run(){
@@ -19,7 +20,8 @@ function run(){
 }
 
 function halt(){
-
+	//stop queue from dispatching any further items
+	// if something has already been triggered, it will complete. this is not abort.
 }
 
 exports.start = function(callback){
@@ -27,11 +29,11 @@ exports.start = function(callback){
 }
 
 exports.stop = function(callback){
-	
+	halt()
 }
 
-exports.setDispatchInterval = function(intval, callback){
-	interval = intval;
+exports.setDispatchInterval = function(interval, callback){
+	_interval = interval;
 	callback(null);
 }
 
@@ -40,15 +42,15 @@ exports.data = function(){
 }
 
 exports.loadData = function(data, callback){
-	// load data from database into queue
+	// load data from database into _queue
 }
 
-exports.exportData = function(database, callback){
-	
+exports.saveData = function(database, callback){
+	// save data from _queue into database
 }
 
 exports.addTask = function(task, callback){
-	queue.push(task);
+	_queue.push(task);
 	callback(null);
 }
 
