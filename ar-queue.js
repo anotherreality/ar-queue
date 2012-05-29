@@ -14,11 +14,11 @@ function currentQueue()
 	return queue;
 }
 
-run = function(){
+function run(){
 	//begin popping off items and dispatching tasks at set interval
 }
 
-halt = function(){
+function halt(){
 
 }
 
@@ -30,8 +30,8 @@ exports.stop = function(callback){
 	
 }
 
-exports.setDispatchInterval = function(interval, callback){
-	_interval = interval;
+exports.setDispatchInterval = function(intval, callback){
+	interval = intval;
 	callback(null);
 }
 
@@ -40,7 +40,7 @@ exports.data = function(){
 }
 
 exports.loadData = function(data, callback){
-	
+	// load data from database into queue
 }
 
 exports.exportData = function(database, callback){
