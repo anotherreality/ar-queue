@@ -22,7 +22,9 @@ app.get('/example', function(req, res) {
 });
 
 app.post('/addTask', function(req, res){
-	var newTask = { 'name': req.body.taskName, 'callback' : function(){console.log('task:'+req.body.taskName+'dispatched');} };
+	var newTask = { 'name': req.body.taskName, 
+						'action' : function(){console.log('task:'+req.body.taskName+'dispatched');} 
+						};
 	queue.addTask(newTask,
 		function(error) {
 			if (error) throw error;
