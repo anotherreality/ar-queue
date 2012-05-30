@@ -8,9 +8,9 @@
 
 var database = require('./database');
 var _queue = [];
-var _interval = 60000; //defaults to 1 minute
+var _interval = 60000; //defaults to 1 minute between dispatching
 
-function active()
+var activeQueue = exports.activeQueue = function()
 {
 	return _queue;
 }
@@ -25,20 +25,22 @@ function halt(){
 }
 
 exports.start = function(callback){
+	database.connect(function(error) {
+		if (error) throw error;
+	});
 	run();
 }
 
 exports.stop = function(callback){
+	database.disconnect(function(error) {
+		if (error) throw error;
+	});
 	halt()
+	// close database
 }
 
 exports.setDispatchInterval = function(interval, callback){
 	_interval = interval;
-	callback(null);
-}
-
-exports.data = function(){
-	currentQueue();
 }
 
 exports.loadData = function(data, callback){
@@ -51,7 +53,6 @@ exports.saveData = function(database, callback){
 
 exports.addTask = function(task, callback){
 	_queue.push(task);
-	callback(null);
 }
 
 exports.removeTask = function(id, callback){

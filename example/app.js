@@ -1,7 +1,8 @@
 var util = require('util');
 var url = require('url');
-var queue = require('../ar-queue');
 var express = require('express');
+var queue = require('../ar-queue');
+
 var app = express.createServer();
 
 app.use(express.logger());
@@ -17,15 +18,18 @@ app.get('/example', function(req, res) {
 	res.render('example.html', {
 		title: "ar-queue.js Example",
 		postpath: '/addTask',
-		queueData: queue.data()
+		queueData: queue.activeQueue()
 	});
 });
 
 app.post('/addTask', function(req, res){
-	var newTask = { 'name': req.body.taskName, 
-						'action' : function(){console.log('task:'+req.body.taskName+'dispatched');} 
-						};
-	queue.addTask(newTask,
+	queue.addTask(
+		req.body.taskName, 
+		queue.queueStatus("normal"), 
+		Date.now, 
+		function(){
+			console.log('task:'+req.body.taskName+'dispatched');
+		},
 		function(error) {
 			if (error) throw error;
 			res.redirect('/example');
@@ -40,15 +44,14 @@ app.error(function(err, req, res) {
 	});
 });
 
-/*
-database.connect(function(error) {
+queue.start(function(error) {
 	if (error) throw error;
 });
 
 app.on('close', function(errno) {
-	database.disconnect(function(err) { });
+	queue.stop(function(err) { });
 });
-*/
+
 
 var port = process.env.PORT || 3000;
 app.listen(port, function() {
