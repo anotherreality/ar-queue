@@ -1,0 +1,20 @@
+<form method='POST' action='<%= postpath %>'>
+	<input type='hidden' name='id' value='<%= task._id %>' />
+	Name:
+		<input class='formInput' type='text' name='taskName' value='<%= task.name %>' /><br />
+	Description:<br />
+	<textarea name='taskDescription' rows='15' cols='50'><%= task.description %></textarea><br />
+	Scheduled Time:
+		<input class='formInput' type='dateTime' name='taskScheduledTime' value='<%= task.scheduledTime %>'/><br />
+	Priority:
+	<select name='taskPriority'>
+		<option value='normal' <%= task.priority === 'normal' ? 'selected' : '' %> >Normal</option>
+		<option value='standby' <%= task.priority === 'standby' ? 'selected' : '' %> >Standby</option>
+		<option value='urgent' <%= task.priority === 'urgent' ? 'selected' : '' %> >Urgent</option>
+	</select>&nbsp;
+	Archive on complete: <input type='checkbox' name='archiveTask' <%= task.archive == true ? 'checked' : '' %> /><br />
+	Action:<br />
+	<textarea name='taskAction' rows='15' cols='50'><%= task.action %></textarea>
+	<br />
+	<input type='submit' value='Update' />
+</form>
