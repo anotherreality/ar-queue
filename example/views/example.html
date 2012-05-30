@@ -1,10 +1,49 @@
-<table>
-	<tr>
-		<td>Queue Table</td>
-	</tr>
-</table>
+<span class='title'>+ New Task</span>
 <form method='POST' action='<%= postpath %>'>
-	<strong>Add Task:</strong>
-	<input type='text' name='taskName' />
+	<input type="hidden" name='taskDescription' value="" />
+	Name:
+		<input class='formInput' type='text' name='taskName' /><br />
+	Scheduled Time:
+		<input class='formInput' type='dateTime' name='taskScheduledTime' /><br />
+	Priority:
+	<select name='taskPriority'>
+		<option value='normal'>Normal</option>
+		<option value='standby'>Standby</option>
+		<option value='urgent'>Urgent</option>
+	</select>&nbsp;
+	Archive on complete: <input type='checkbox' name='archiveTask' checked /><br />
+	Action:<br />
+	<textarea name='taskAction' rows="15" cols="50"></textarea>
+	<br />
 	<input type='submit' value='Add' />
 </form>
+
+<h2>Active Queue</h2>
+<table>
+	<tr>
+		<th>Name</th>
+		<th>Scheduled Time</th>
+		<th>Priority</th>
+		<th>Created</th>
+		<th>&nbsp;</th>
+	</tr>
+	<% queue.forEach(function(task) {%> 
+		<tr onclick="location.href='/edit?id=<%= task._id %>';">
+			<th><%= task.name %></th>
+			<th><%= task.scheduledTime %></th>
+			<th><%= task.priority %></th>
+			<th><%= task.created_ts.toDateString() %></th>
+			<th>&nbsp;</th>
+		</tr>
+	<% }); %>
+</table>
+
+<h3>Archive</h3>
+<table>
+	<tr>
+		<th>Name</th>
+		<th>Scheduled Time</th>
+		<th>Dispatch Time</th>
+		<th>&nbsp;</th>
+	</tr>
+</table>
